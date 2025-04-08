@@ -8,6 +8,9 @@ The system lets restaurant managers add their restaurants to the platform, creat
 ## ERD Diagram
 ![ERD Diagram](./docs/erd_diagram.png)
 
+## 📊 Presentation
+You can view my presentation [here](./docs/GO.pdf).
+
 ## Tech Stack
 - Golang with Echo framework for REST API
 - PostgreSQL for database
