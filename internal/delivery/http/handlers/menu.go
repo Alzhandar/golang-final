@@ -27,6 +27,7 @@ func (h *MenuHandler) Register(e *echo.Group) {
 	menus.GET("/restaurant/:restaurantID", h.GetByRestaurant)
 	menus.PUT("/:id", h.Update)
 	menus.DELETE("/:id", h.Delete)
+
 }
 
 // Create godoc

@@ -1,0 +1,53 @@
+@startuml
+left to right direction
+
+actor Customer
+actor Waiter
+actor Admin
+actor RestaurantManager
+
+rectangle "Order Processing" {
+    Customer --> (View Menu)
+    Customer --> (Place Order)
+    Customer --> (Track Order)
+    (Place Order) ..> (Process Payment) : includes
+    Waiter --> (Receive Orders)
+    Waiter --> (Update Status)
+}
+
+rectangle "User Management" {
+    Customer --> (Change Language)
+    Customer --> (Manage Profile)
+    Admin --> (Register User)
+}
+
+rectangle "Restaurant Management" {
+    Admin --> (View Analytics)
+    Admin --> (Activate/Deactivate)
+    Admin --> (Add Restaurant)
+    Admin --> (Edit Restaurant Details)
+    Admin --> (Manage Sections)
+    Admin --> (Upload Map)
+}
+
+rectangle "Menu Management" {
+    RestaurantManager --> (Add Menu Items)
+    RestaurantManager --> (Edit Menu Items)
+    RestaurantManager --> (Manage Categories)
+    RestaurantManager --> (Set Prices)
+}
+
+rectangle "Table Management" {
+    RestaurantManager --> (Add Tables)
+    RestaurantManager --> (Generate QR Codes)
+    RestaurantManager --> (Assign to Sections)
+}
+
+rectangle "Event Management" {
+    RestaurantManager --> (Create Event)
+    (Create Event) ..> (Assign Tables) : includes
+    RestaurantManager --> (Manage Event Types)
+    RestaurantManager --> (Set Pricing)
+}
+
+@enduml
