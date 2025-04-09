@@ -6,13 +6,13 @@ import (
 	"os"
 	"path/filepath"
 
+	_ "restaurant-management/docs"
 	"restaurant-management/internal/config"
 	"restaurant-management/internal/delivery/http"
 	"restaurant-management/internal/repository"
 	"restaurant-management/internal/repository/postgres"
 	"restaurant-management/internal/usecase"
 	"restaurant-management/pkg/database"
-	// _ "restaurant-management/docs"
 )
 
 // @title Restaurant Management System API

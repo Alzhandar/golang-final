@@ -1,0 +1,29 @@
+sequenceDiagram
+    participant Client as Клиент
+    participant APIGateway as API Gateway
+    participant TableService as Сервис столиков
+    participant DB as База данных
+    
+    Client->>APIGateway: POST /api/v1/reservations
+    Note over Client,APIGateway: Запрос с JWT токеном
+    APIGateway->>APIGateway: Проверка токена
+    
+    alt Токен действителен
+        APIGateway->>TableService: Запрос на бронирование
+        TableService->>DB: Проверка доступности столика
+        
+        alt Столик доступен
+            DB-->>TableService: Столик свободен
+            TableService->>DB: Создание бронирования
+            DB-->>TableService: OK
+            TableService-->>APIGateway: Бронирование создано
+            APIGateway-->>Client: 201 Created
+        else Столик занят
+            DB-->>TableService: Столик занят
+            TableService-->>APIGateway: Ошибка бронирования
+            APIGateway-->>Client: 400 Bad Request
+        end
+        
+    else Недействительный токен
+        APIGateway-->>Client: 401 Unauthorized
+    end

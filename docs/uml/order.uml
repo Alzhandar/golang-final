@@ -1,0 +1,31 @@
+sequenceDiagram
+    participant Client as Клиент
+    participant APIGateway as API Gateway
+    participant OrderService as Сервис заказов
+    participant MenuService as Сервис меню
+    participant DB as База данных
+    
+    Client->>APIGateway: POST /api/v1/orders
+    Note over Client,APIGateway: Запрос с JWT токеном и списком блюд
+    APIGateway->>APIGateway: Проверка токена
+    
+    alt Токен действителен
+        APIGateway->>OrderService: Создание заказа
+        OrderService->>MenuService: Проверка доступности блюд
+        MenuService->>DB: Запрос информации о блюдах
+        DB-->>MenuService: Информация о блюдах
+        MenuService-->>OrderService: Результат проверки
+        
+        alt Все блюда доступны
+            OrderService->>DB: Сохранение заказа
+            DB-->>OrderService: OK
+            OrderService-->>APIGateway: Заказ создан
+            APIGateway-->>Client: 201 Created
+        else Недоступные блюда
+            OrderService-->>APIGateway: Ошибка с перечнем недоступных блюд
+            APIGateway-->>Client: 400 Bad Request
+        end
+        
+    else Недействительный токен
+        APIGateway-->>Client: 401 Unauthorized
+    end
