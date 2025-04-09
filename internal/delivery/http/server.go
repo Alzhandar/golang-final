@@ -57,7 +57,7 @@ func (s *Server) Start() error {
 }
 
 func (s *Server) setupRoutes() {
-	s.echo.GET("/swagger/*", echoSwagger.WrapHandler)
+	s.echo.GET("/swagger*", echoSwagger.WrapHandler)
 
 	api := s.echo.Group("/api/v1")
 
