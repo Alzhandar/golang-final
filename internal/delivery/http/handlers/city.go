@@ -39,7 +39,7 @@ func (h *CityHandler) Register(e *echo.Group) {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/cities [post]
+// @Router /cities [post]
 func (h *CityHandler) Create(c echo.Context) error {
 	var city models.City
 	if err := c.Bind(&city); err != nil {
@@ -72,7 +72,7 @@ func (h *CityHandler) Create(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/cities/{id} [get]
+// @Router /cities/{id} [get]
 func (h *CityHandler) GetByID(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -104,7 +104,7 @@ func (h *CityHandler) GetByID(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/cities/{id} [put]
+// @Router /cities/{id} [put]
 func (h *CityHandler) Update(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -144,7 +144,7 @@ func (h *CityHandler) Update(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/cities/{id} [delete]
+// @Router /cities/{id} [delete]
 func (h *CityHandler) Delete(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -173,7 +173,7 @@ func (h *CityHandler) Delete(c echo.Context) error {
 // @Produce json
 // @Success 200 {array} models.City
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/cities [get]
+// @Router /cities [get]
 func (h *CityHandler) List(c echo.Context) error {
 	cities, err := h.cityUC.List(c.Request().Context())
 	if err != nil {

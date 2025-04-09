@@ -119,174 +119,6 @@ info:
   title: Restaurant Management System API
   version: "1.0"
 paths:
-  /api/v1/cities:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список всех городов
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.City'
-            type: array
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить список всех городов
-      tags:
-      - cities
-    post:
-      consumes:
-      - application/json
-      description: Создает новый город в системе
-      parameters:
-      - description: Данные города
-        in: body
-        name: city
-        required: true
-        schema:
-          $ref: '#/definitions/models.City'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Создать новый город
-      tags:
-      - cities
-  /api/v1/cities/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Удаляет город по его ID
-      parameters:
-      - description: ID города
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Удалить город
-      tags:
-      - cities
-    get:
-      consumes:
-      - application/json
-      description: Возвращает город по его ID
-      parameters:
-      - description: ID города
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.City'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить город по ID
-      tags:
-      - cities
-    put:
-      consumes:
-      - application/json
-      description: Обновляет данные существующего города
-      parameters:
-      - description: ID города
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Обновленные данные города
-        in: body
-        name: city
-        required: true
-        schema:
-          $ref: '#/definitions/models.City'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Обновить данные города
-      tags:
-      - cities
   /api/v1/events:
     get:
       consumes:
@@ -1675,4 +1507,172 @@ paths:
       summary: Получить пользователя по номеру телефона
       tags:
       - users
+  /cities:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список всех городов
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.City'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить список всех городов
+      tags:
+      - cities
+    post:
+      consumes:
+      - application/json
+      description: Создает новый город в системе
+      parameters:
+      - description: Данные города
+        in: body
+        name: city
+        required: true
+        schema:
+          $ref: '#/definitions/models.City'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Создать новый город
+      tags:
+      - cities
+  /cities/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет город по его ID
+      parameters:
+      - description: ID города
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Удалить город
+      tags:
+      - cities
+    get:
+      consumes:
+      - application/json
+      description: Возвращает город по его ID
+      parameters:
+      - description: ID города
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.City'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить город по ID
+      tags:
+      - cities
+    put:
+      consumes:
+      - application/json
+      description: Обновляет данные существующего города
+      parameters:
+      - description: ID города
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные города
+        in: body
+        name: city
+        required: true
+        schema:
+          $ref: '#/definitions/models.City'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Обновить данные города
+      tags:
+      - cities
 swagger: "2.0"
