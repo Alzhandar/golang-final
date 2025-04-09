@@ -40,7 +40,7 @@ func (h *UserHandler) Register(e *echo.Group) {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/users [post]
+// @Router /users [post]
 func (h *UserHandler) Create(c echo.Context) error {
 	var user models.User
 	if err := c.Bind(&user); err != nil {
@@ -73,7 +73,7 @@ func (h *UserHandler) Create(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/users/{id} [get]
+// @Router /users/{id} [get]
 func (h *UserHandler) GetByID(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -103,7 +103,7 @@ func (h *UserHandler) GetByID(c echo.Context) error {
 // @Success 200 {object} models.User
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/users/phone/{phone} [get]
+// @Router /users/phone/{phone} [get]
 func (h *UserHandler) GetByPhone(c echo.Context) error {
 	phone := c.Param("phone")
 	user, err := h.userUC.GetByPhone(c.Request().Context(), phone)
@@ -128,7 +128,7 @@ func (h *UserHandler) GetByPhone(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/users/{id} [put]
+// @Router /users/{id} [put]
 func (h *UserHandler) Update(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -168,7 +168,7 @@ func (h *UserHandler) Update(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/users/{id} [delete]
+// @Router /users/{id} [delete]
 func (h *UserHandler) Delete(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -199,7 +199,7 @@ func (h *UserHandler) Delete(c echo.Context) error {
 // @Param offset query int false "Смещение" default(0)
 // @Success 200 {array} models.User
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/users [get]
+// @Router /users [get]
 func (h *UserHandler) List(c echo.Context) error {
 	limitStr := c.QueryParam("limit")
 	offsetStr := c.QueryParam("offset")

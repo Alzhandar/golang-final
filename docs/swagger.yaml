@@ -119,1394 +119,6 @@ info:
   title: Restaurant Management System API
   version: "1.0"
 paths:
-  /api/v1/events:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список всех событий ресторана
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.RestaurantEvent'
-            type: array
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить список всех событий ресторана
-      tags:
-      - events
-    post:
-      consumes:
-      - application/json
-      description: Создает новое событие ресторана в системе
-      parameters:
-      - description: Данные события ресторана
-        in: body
-        name: event
-        required: true
-        schema:
-          $ref: '#/definitions/models.RestaurantEvent'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Создать новое событие ресторана
-      tags:
-      - events
-  /api/v1/events/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Удаляет событие ресторана по его ID
-      parameters:
-      - description: ID события ресторана
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Удалить событие ресторана
-      tags:
-      - events
-    get:
-      consumes:
-      - application/json
-      description: Возвращает событие ресторана по его ID
-      parameters:
-      - description: ID события ресторана
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.RestaurantEvent'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить событие ресторана по ID
-      tags:
-      - events
-    put:
-      consumes:
-      - application/json
-      description: Обновляет данные существующего события ресторана
-      parameters:
-      - description: ID события ресторана
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Обновленные данные события ресторана
-        in: body
-        name: event
-        required: true
-        schema:
-          $ref: '#/definitions/models.RestaurantEvent'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Обновить данные события ресторана
-      tags:
-      - events
-  /api/v1/events/type/{type}:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список событий ресторана указанного типа
-      parameters:
-      - description: Тип события (wedding, birthday, corporate)
-        in: path
-        name: type
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.RestaurantEvent'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить события ресторана по типу
-      tags:
-      - events
-  /api/v1/menu-types:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список всех типов меню
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.MenuType'
-            type: array
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить список всех типов меню
-      tags:
-      - menu-types
-    post:
-      consumes:
-      - application/json
-      description: Создает новый тип меню в системе
-      parameters:
-      - description: Данные типа меню
-        in: body
-        name: menuType
-        required: true
-        schema:
-          $ref: '#/definitions/models.MenuType'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Создать новый тип меню
-      tags:
-      - menu-types
-  /api/v1/menu-types/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Удаляет тип меню по его ID
-      parameters:
-      - description: ID типа меню
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Удалить тип меню
-      tags:
-      - menu-types
-    get:
-      consumes:
-      - application/json
-      description: Возвращает тип меню по его ID
-      parameters:
-      - description: ID типа меню
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.MenuType'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить тип меню по ID
-      tags:
-      - menu-types
-    put:
-      consumes:
-      - application/json
-      description: Обновляет данные существующего типа меню
-      parameters:
-      - description: ID типа меню
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Обновленные данные типа меню
-        in: body
-        name: menuType
-        required: true
-        schema:
-          $ref: '#/definitions/models.MenuType'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Обновить данные типа меню
-      tags:
-      - menu-types
-  /api/v1/menus:
-    post:
-      consumes:
-      - application/json
-      description: Создает новое меню для указанного ресторана
-      parameters:
-      - description: Данные меню
-        in: body
-        name: menu
-        required: true
-        schema:
-          $ref: '#/definitions/models.Menu'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Создать новое меню
-      tags:
-      - menus
-  /api/v1/menus/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Удаляет меню по его ID
-      parameters:
-      - description: ID меню
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Удалить меню
-      tags:
-      - menus
-    get:
-      consumes:
-      - application/json
-      description: Возвращает меню по его ID
-      parameters:
-      - description: ID меню
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Menu'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить меню по ID
-      tags:
-      - menus
-    put:
-      consumes:
-      - application/json
-      description: Обновляет данные существующего меню
-      parameters:
-      - description: ID меню
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Обновленные данные меню
-        in: body
-        name: menu
-        required: true
-        schema:
-          $ref: '#/definitions/models.Menu'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Обновить данные меню
-      tags:
-      - menus
-  /api/v1/menus/restaurant/{restaurantID}:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список меню для указанного ресторана
-      parameters:
-      - description: ID ресторана
-        in: path
-        name: restaurantID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.Menu'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить меню по ID ресторана
-      tags:
-      - menus
-  /api/v1/restaurants:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список ресторанов с фильтрацией по активности
-      parameters:
-      - default: true
-        description: Фильтр по активности ресторанов
-        in: query
-        name: active
-        type: boolean
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.Restaurant'
-            type: array
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить список ресторанов
-      tags:
-      - restaurants
-    post:
-      consumes:
-      - application/json
-      description: Создает новый ресторан в системе
-      parameters:
-      - description: Данные ресторана
-        in: body
-        name: restaurant
-        required: true
-        schema:
-          $ref: '#/definitions/models.Restaurant'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Создать новый ресторан
-      tags:
-      - restaurants
-  /api/v1/restaurants/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Удаляет ресторан по его ID
-      parameters:
-      - description: ID ресторана
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Удалить ресторан
-      tags:
-      - restaurants
-    get:
-      consumes:
-      - application/json
-      description: Возвращает ресторан по его ID
-      parameters:
-      - description: ID ресторана
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Restaurant'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить ресторан по ID
-      tags:
-      - restaurants
-    put:
-      consumes:
-      - application/json
-      description: Обновляет данные существующего ресторана
-      parameters:
-      - description: ID ресторана
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Обновленные данные ресторана
-        in: body
-        name: restaurant
-        required: true
-        schema:
-          $ref: '#/definitions/models.Restaurant'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Обновить данные ресторана
-      tags:
-      - restaurants
-  /api/v1/restaurants/city/{cityID}:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список ресторанов, находящихся в указанном городе
-      parameters:
-      - description: ID города
-        in: path
-        name: cityID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.Restaurant'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить рестораны по ID города
-      tags:
-      - restaurants
-  /api/v1/sections:
-    post:
-      consumes:
-      - application/json
-      description: Создает новую секцию для указанного ресторана
-      parameters:
-      - description: Данные секции
-        in: body
-        name: section
-        required: true
-        schema:
-          $ref: '#/definitions/models.Section'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Создать новую секцию ресторана
-      tags:
-      - sections
-  /api/v1/sections/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Удаляет секцию по её ID
-      parameters:
-      - description: ID секции
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Удалить секцию
-      tags:
-      - sections
-    get:
-      consumes:
-      - application/json
-      description: Возвращает секцию по её ID
-      parameters:
-      - description: ID секции
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Section'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить секцию по ID
-      tags:
-      - sections
-    put:
-      consumes:
-      - application/json
-      description: Обновляет данные существующей секции
-      parameters:
-      - description: ID секции
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Обновленные данные секции
-        in: body
-        name: section
-        required: true
-        schema:
-          $ref: '#/definitions/models.Section'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Обновить данные секции
-      tags:
-      - sections
-  /api/v1/sections/restaurant/{restaurantID}:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список секций для указанного ресторана
-      parameters:
-      - description: ID ресторана
-        in: path
-        name: restaurantID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.Section'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить секции по ID ресторана
-      tags:
-      - sections
-  /api/v1/tables:
-    post:
-      consumes:
-      - application/json
-      description: Создает новый столик для указанной секции
-      parameters:
-      - description: Данные столика
-        in: body
-        name: table
-        required: true
-        schema:
-          $ref: '#/definitions/models.Table'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Создать новый столик
-      tags:
-      - tables
-  /api/v1/tables/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Удаляет столик по его ID
-      parameters:
-      - description: ID столика
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Удалить столик
-      tags:
-      - tables
-    get:
-      consumes:
-      - application/json
-      description: Возвращает столик по его ID
-      parameters:
-      - description: ID столика
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.Table'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить столик по ID
-      tags:
-      - tables
-    put:
-      consumes:
-      - application/json
-      description: Обновляет данные существующего столика
-      parameters:
-      - description: ID столика
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Обновленные данные столика
-        in: body
-        name: table
-        required: true
-        schema:
-          $ref: '#/definitions/models.Table'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Обновить данные столика
-      tags:
-      - tables
-  /api/v1/tables/{id}/qr:
-    post:
-      consumes:
-      - application/json
-      description: Генерирует и возвращает QR-код для указанного столика
-      parameters:
-      - description: ID столика
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Сгенерировать QR-код для столика
-      tags:
-      - tables
-  /api/v1/tables/section/{sectionID}:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список столиков для указанной секции
-      parameters:
-      - description: ID секции
-        in: path
-        name: sectionID
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.Table'
-            type: array
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить столики по ID секции
-      tags:
-      - tables
-  /api/v1/users:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает список пользователей с пагинацией
-      parameters:
-      - default: 10
-        description: Количество записей на странице
-        in: query
-        name: limit
-        type: integer
-      - default: 0
-        description: Смещение
-        in: query
-        name: offset
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            items:
-              $ref: '#/definitions/models.User'
-            type: array
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить список пользователей
-      tags:
-      - users
-    post:
-      consumes:
-      - application/json
-      description: Создает нового пользователя в системе
-      parameters:
-      - description: Данные пользователя
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/models.User'
-      produces:
-      - application/json
-      responses:
-        "201":
-          description: Created
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Создать нового пользователя
-      tags:
-      - users
-  /api/v1/users/{id}:
-    delete:
-      consumes:
-      - application/json
-      description: Удаляет пользователя по его ID
-      parameters:
-      - description: ID пользователя
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Удалить пользователя
-      tags:
-      - users
-    get:
-      consumes:
-      - application/json
-      description: Возвращает пользователя по его ID
-      parameters:
-      - description: ID пользователя
-        in: path
-        name: id
-        required: true
-        type: integer
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.User'
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить пользователя по ID
-      tags:
-      - users
-    put:
-      consumes:
-      - application/json
-      description: Обновляет данные существующего пользователя
-      parameters:
-      - description: ID пользователя
-        in: path
-        name: id
-        required: true
-        type: integer
-      - description: Обновленные данные пользователя
-        in: body
-        name: user
-        required: true
-        schema:
-          $ref: '#/definitions/models.User'
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            additionalProperties: true
-            type: object
-        "400":
-          description: Bad Request
-          schema:
-            additionalProperties: true
-            type: object
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Обновить данные пользователя
-      tags:
-      - users
-  /api/v1/users/phone/{phone}:
-    get:
-      consumes:
-      - application/json
-      description: Возвращает пользователя по его номеру телефона
-      parameters:
-      - description: Номер телефона пользователя
-        in: path
-        name: phone
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            $ref: '#/definitions/models.User'
-        "404":
-          description: Not Found
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: Internal Server Error
-          schema:
-            additionalProperties: true
-            type: object
-      summary: Получить пользователя по номеру телефона
-      tags:
-      - users
   /cities:
     get:
       consumes:
@@ -1675,4 +287,1392 @@ paths:
       summary: Обновить данные города
       tags:
       - cities
+  /events:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список всех событий ресторана
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.RestaurantEvent'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить список всех событий ресторана
+      tags:
+      - events
+    post:
+      consumes:
+      - application/json
+      description: Создает новое событие ресторана в системе
+      parameters:
+      - description: Данные события ресторана
+        in: body
+        name: event
+        required: true
+        schema:
+          $ref: '#/definitions/models.RestaurantEvent'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Создать новое событие ресторана
+      tags:
+      - events
+  /events/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет событие ресторана по его ID
+      parameters:
+      - description: ID события ресторана
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Удалить событие ресторана
+      tags:
+      - events
+    get:
+      consumes:
+      - application/json
+      description: Возвращает событие ресторана по его ID
+      parameters:
+      - description: ID события ресторана
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.RestaurantEvent'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить событие ресторана по ID
+      tags:
+      - events
+    put:
+      consumes:
+      - application/json
+      description: Обновляет данные существующего события ресторана
+      parameters:
+      - description: ID события ресторана
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные события ресторана
+        in: body
+        name: event
+        required: true
+        schema:
+          $ref: '#/definitions/models.RestaurantEvent'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Обновить данные события ресторана
+      tags:
+      - events
+  /events/type/{type}:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список событий ресторана указанного типа
+      parameters:
+      - description: Тип события (wedding, birthday, corporate)
+        in: path
+        name: type
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.RestaurantEvent'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить события ресторана по типу
+      tags:
+      - events
+  /menu-types:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список всех типов меню
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.MenuType'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить список всех типов меню
+      tags:
+      - menu-types
+    post:
+      consumes:
+      - application/json
+      description: Создает новый тип меню в системе
+      parameters:
+      - description: Данные типа меню
+        in: body
+        name: menuType
+        required: true
+        schema:
+          $ref: '#/definitions/models.MenuType'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Создать новый тип меню
+      tags:
+      - menu-types
+  /menu-types/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет тип меню по его ID
+      parameters:
+      - description: ID типа меню
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Удалить тип меню
+      tags:
+      - menu-types
+    get:
+      consumes:
+      - application/json
+      description: Возвращает тип меню по его ID
+      parameters:
+      - description: ID типа меню
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.MenuType'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить тип меню по ID
+      tags:
+      - menu-types
+    put:
+      consumes:
+      - application/json
+      description: Обновляет данные существующего типа меню
+      parameters:
+      - description: ID типа меню
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные типа меню
+        in: body
+        name: menuType
+        required: true
+        schema:
+          $ref: '#/definitions/models.MenuType'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Обновить данные типа меню
+      tags:
+      - menu-types
+  /menus:
+    post:
+      consumes:
+      - application/json
+      description: Создает новое меню для указанного ресторана
+      parameters:
+      - description: Данные меню
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/models.Menu'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Создать новое меню
+      tags:
+      - menus
+  /menus/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет меню по его ID
+      parameters:
+      - description: ID меню
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Удалить меню
+      tags:
+      - menus
+    get:
+      consumes:
+      - application/json
+      description: Возвращает меню по его ID
+      parameters:
+      - description: ID меню
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Menu'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить меню по ID
+      tags:
+      - menus
+    put:
+      consumes:
+      - application/json
+      description: Обновляет данные существующего меню
+      parameters:
+      - description: ID меню
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные меню
+        in: body
+        name: menu
+        required: true
+        schema:
+          $ref: '#/definitions/models.Menu'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Обновить данные меню
+      tags:
+      - menus
+  /menus/restaurant/{restaurantID}:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список меню для указанного ресторана
+      parameters:
+      - description: ID ресторана
+        in: path
+        name: restaurantID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Menu'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить меню по ID ресторана
+      tags:
+      - menus
+  /restaurants:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список ресторанов с фильтрацией по активности
+      parameters:
+      - default: true
+        description: Фильтр по активности ресторанов
+        in: query
+        name: active
+        type: boolean
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Restaurant'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить список ресторанов
+      tags:
+      - restaurants
+    post:
+      consumes:
+      - application/json
+      description: Создает новый ресторан в системе
+      parameters:
+      - description: Данные ресторана
+        in: body
+        name: restaurant
+        required: true
+        schema:
+          $ref: '#/definitions/models.Restaurant'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Создать новый ресторан
+      tags:
+      - restaurants
+  /restaurants/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет ресторан по его ID
+      parameters:
+      - description: ID ресторана
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Удалить ресторан
+      tags:
+      - restaurants
+    get:
+      consumes:
+      - application/json
+      description: Возвращает ресторан по его ID
+      parameters:
+      - description: ID ресторана
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Restaurant'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить ресторан по ID
+      tags:
+      - restaurants
+    put:
+      consumes:
+      - application/json
+      description: Обновляет данные существующего ресторана
+      parameters:
+      - description: ID ресторана
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные ресторана
+        in: body
+        name: restaurant
+        required: true
+        schema:
+          $ref: '#/definitions/models.Restaurant'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Обновить данные ресторана
+      tags:
+      - restaurants
+  /restaurants/city/{cityID}:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список ресторанов, находящихся в указанном городе
+      parameters:
+      - description: ID города
+        in: path
+        name: cityID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Restaurant'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить рестораны по ID города
+      tags:
+      - restaurants
+  /sections:
+    post:
+      consumes:
+      - application/json
+      description: Создает новую секцию для указанного ресторана
+      parameters:
+      - description: Данные секции
+        in: body
+        name: section
+        required: true
+        schema:
+          $ref: '#/definitions/models.Section'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Создать новую секцию ресторана
+      tags:
+      - sections
+  /sections/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет секцию по её ID
+      parameters:
+      - description: ID секции
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Удалить секцию
+      tags:
+      - sections
+    get:
+      consumes:
+      - application/json
+      description: Возвращает секцию по её ID
+      parameters:
+      - description: ID секции
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Section'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить секцию по ID
+      tags:
+      - sections
+    put:
+      consumes:
+      - application/json
+      description: Обновляет данные существующей секции
+      parameters:
+      - description: ID секции
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные секции
+        in: body
+        name: section
+        required: true
+        schema:
+          $ref: '#/definitions/models.Section'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Обновить данные секции
+      tags:
+      - sections
+  /sections/restaurant/{restaurantID}:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список секций для указанного ресторана
+      parameters:
+      - description: ID ресторана
+        in: path
+        name: restaurantID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Section'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить секции по ID ресторана
+      tags:
+      - sections
+  /tables:
+    post:
+      consumes:
+      - application/json
+      description: Создает новый столик для указанной секции
+      parameters:
+      - description: Данные столика
+        in: body
+        name: table
+        required: true
+        schema:
+          $ref: '#/definitions/models.Table'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Создать новый столик
+      tags:
+      - tables
+  /tables/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет столик по его ID
+      parameters:
+      - description: ID столика
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Удалить столик
+      tags:
+      - tables
+    get:
+      consumes:
+      - application/json
+      description: Возвращает столик по его ID
+      parameters:
+      - description: ID столика
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Table'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить столик по ID
+      tags:
+      - tables
+    put:
+      consumes:
+      - application/json
+      description: Обновляет данные существующего столика
+      parameters:
+      - description: ID столика
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные столика
+        in: body
+        name: table
+        required: true
+        schema:
+          $ref: '#/definitions/models.Table'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Обновить данные столика
+      tags:
+      - tables
+  /tables/{id}/qr:
+    post:
+      consumes:
+      - application/json
+      description: Генерирует и возвращает QR-код для указанного столика
+      parameters:
+      - description: ID столика
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Сгенерировать QR-код для столика
+      tags:
+      - tables
+  /tables/section/{sectionID}:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список столиков для указанной секции
+      parameters:
+      - description: ID секции
+        in: path
+        name: sectionID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Table'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить столики по ID секции
+      tags:
+      - tables
+  /users:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает список пользователей с пагинацией
+      parameters:
+      - default: 10
+        description: Количество записей на странице
+        in: query
+        name: limit
+        type: integer
+      - default: 0
+        description: Смещение
+        in: query
+        name: offset
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.User'
+            type: array
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить список пользователей
+      tags:
+      - users
+    post:
+      consumes:
+      - application/json
+      description: Создает нового пользователя в системе
+      parameters:
+      - description: Данные пользователя
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Создать нового пользователя
+      tags:
+      - users
+  /users/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Удаляет пользователя по его ID
+      parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Удалить пользователя
+      tags:
+      - users
+    get:
+      consumes:
+      - application/json
+      description: Возвращает пользователя по его ID
+      parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить пользователя по ID
+      tags:
+      - users
+    put:
+      consumes:
+      - application/json
+      description: Обновляет данные существующего пользователя
+      parameters:
+      - description: ID пользователя
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: Обновленные данные пользователя
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/models.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Bad Request
+          schema:
+            additionalProperties: true
+            type: object
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Обновить данные пользователя
+      tags:
+      - users
+  /users/phone/{phone}:
+    get:
+      consumes:
+      - application/json
+      description: Возвращает пользователя по его номеру телефона
+      parameters:
+      - description: Номер телефона пользователя
+        in: path
+        name: phone
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "404":
+          description: Not Found
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Internal Server Error
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Получить пользователя по номеру телефона
+      tags:
+      - users
 swagger: "2.0"

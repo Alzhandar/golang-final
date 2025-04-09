@@ -39,7 +39,7 @@ func (h *MenuTypeHandler) Register(e *echo.Group) {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menu-types [post]
+// @Router /menu-types [post]
 func (h *MenuTypeHandler) Create(c echo.Context) error {
 	var menuType models.MenuType
 	if err := c.Bind(&menuType); err != nil {
@@ -72,7 +72,7 @@ func (h *MenuTypeHandler) Create(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menu-types/{id} [get]
+// @Router /menu-types/{id} [get]
 func (h *MenuTypeHandler) GetByID(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -104,7 +104,7 @@ func (h *MenuTypeHandler) GetByID(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menu-types/{id} [put]
+// @Router /menu-types/{id} [put]
 func (h *MenuTypeHandler) Update(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -144,7 +144,7 @@ func (h *MenuTypeHandler) Update(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menu-types/{id} [delete]
+// @Router /menu-types/{id} [delete]
 func (h *MenuTypeHandler) Delete(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -173,7 +173,7 @@ func (h *MenuTypeHandler) Delete(c echo.Context) error {
 // @Produce json
 // @Success 200 {array} models.MenuType
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menu-types [get]
+// @Router /menu-types [get]
 func (h *MenuTypeHandler) List(c echo.Context) error {
 	menuTypes, err := h.menuTypeUC.List(c.Request().Context())
 	if err != nil {

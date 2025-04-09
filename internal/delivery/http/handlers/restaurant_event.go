@@ -40,7 +40,7 @@ func (h *RestaurantEventHandler) Register(e *echo.Group) {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/events [post]
+// @Router /events [post]
 func (h *RestaurantEventHandler) Create(c echo.Context) error {
 	var event models.RestaurantEvent
 	if err := c.Bind(&event); err != nil {
@@ -73,7 +73,7 @@ func (h *RestaurantEventHandler) Create(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/events/{id} [get]
+// @Router /events/{id} [get]
 func (h *RestaurantEventHandler) GetByID(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -104,7 +104,7 @@ func (h *RestaurantEventHandler) GetByID(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/events/type/{type} [get]
+// @Router /events/type/{type} [get]
 func (h *RestaurantEventHandler) GetByType(c echo.Context) error {
 	typeStr := c.Param("type")
 
@@ -144,7 +144,7 @@ func (h *RestaurantEventHandler) GetByType(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/events/{id} [put]
+// @Router /events/{id} [put]
 func (h *RestaurantEventHandler) Update(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -184,7 +184,7 @@ func (h *RestaurantEventHandler) Update(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/events/{id} [delete]
+// @Router /events/{id} [delete]
 func (h *RestaurantEventHandler) Delete(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -213,7 +213,7 @@ func (h *RestaurantEventHandler) Delete(c echo.Context) error {
 // @Produce json
 // @Success 200 {array} models.RestaurantEvent
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/events [get]
+// @Router /events [get]
 func (h *RestaurantEventHandler) List(c echo.Context) error {
 	events, err := h.eventUC.List(c.Request().Context())
 	if err != nil {

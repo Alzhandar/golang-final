@@ -39,7 +39,7 @@ func (h *SectionHandler) Register(e *echo.Group) {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/sections [post]
+// @Router /sections [post]
 func (h *SectionHandler) Create(c echo.Context) error {
 	var section models.Section
 	if err := c.Bind(&section); err != nil {
@@ -72,7 +72,7 @@ func (h *SectionHandler) Create(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/sections/{id} [get]
+// @Router /sections/{id} [get]
 func (h *SectionHandler) GetByID(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -103,7 +103,7 @@ func (h *SectionHandler) GetByID(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/sections/restaurant/{restaurantID} [get]
+// @Router /sections/restaurant/{restaurantID} [get]
 func (h *SectionHandler) GetByRestaurant(c echo.Context) error {
 	restaurantIDStr := c.Param("restaurantID")
 	restaurantID, err := strconv.ParseInt(restaurantIDStr, 10, 64)
@@ -135,7 +135,7 @@ func (h *SectionHandler) GetByRestaurant(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/sections/{id} [put]
+// @Router /sections/{id} [put]
 func (h *SectionHandler) Update(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -175,7 +175,7 @@ func (h *SectionHandler) Update(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/sections/{id} [delete]
+// @Router /sections/{id} [delete]
 func (h *SectionHandler) Delete(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)

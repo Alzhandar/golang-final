@@ -40,7 +40,7 @@ func (h *TableHandler) Register(e *echo.Group) {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/tables [post]
+// @Router /tables [post]
 func (h *TableHandler) Create(c echo.Context) error {
 	var table models.Table
 	if err := c.Bind(&table); err != nil {
@@ -74,7 +74,7 @@ func (h *TableHandler) Create(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/tables/{id} [get]
+// @Router /tables/{id} [get]
 func (h *TableHandler) GetByID(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -105,7 +105,7 @@ func (h *TableHandler) GetByID(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/tables/section/{sectionID} [get]
+// @Router /tables/section/{sectionID} [get]
 func (h *TableHandler) GetBySection(c echo.Context) error {
 	sectionIDStr := c.Param("sectionID")
 	sectionID, err := strconv.ParseInt(sectionIDStr, 10, 64)
@@ -137,7 +137,7 @@ func (h *TableHandler) GetBySection(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/tables/{id} [put]
+// @Router /tables/{id} [put]
 func (h *TableHandler) Update(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -177,7 +177,7 @@ func (h *TableHandler) Update(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/tables/{id} [delete]
+// @Router /tables/{id} [delete]
 func (h *TableHandler) Delete(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -209,7 +209,7 @@ func (h *TableHandler) Delete(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/tables/{id}/qr [post]
+// @Router /tables/{id}/qr [post]
 func (h *TableHandler) GenerateQR(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)

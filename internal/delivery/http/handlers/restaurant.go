@@ -40,7 +40,7 @@ func (h *RestaurantHandler) Register(e *echo.Group) {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/restaurants [post]
+// @Router /restaurants [post]
 func (h *RestaurantHandler) Create(c echo.Context) error {
 	var restaurant models.Restaurant
 	if err := c.Bind(&restaurant); err != nil {
@@ -73,7 +73,7 @@ func (h *RestaurantHandler) Create(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/restaurants/{id} [get]
+// @Router /restaurants/{id} [get]
 func (h *RestaurantHandler) GetByID(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -104,7 +104,7 @@ func (h *RestaurantHandler) GetByID(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/restaurants/city/{cityID} [get]
+// @Router /restaurants/city/{cityID} [get]
 func (h *RestaurantHandler) GetByCity(c echo.Context) error {
 	cityIDStr := c.Param("cityID")
 	cityID, err := strconv.ParseInt(cityIDStr, 10, 64)
@@ -136,7 +136,7 @@ func (h *RestaurantHandler) GetByCity(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/restaurants/{id} [put]
+// @Router /restaurants/{id} [put]
 func (h *RestaurantHandler) Update(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -176,7 +176,7 @@ func (h *RestaurantHandler) Update(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/restaurants/{id} [delete]
+// @Router /restaurants/{id} [delete]
 func (h *RestaurantHandler) Delete(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -206,7 +206,7 @@ func (h *RestaurantHandler) Delete(c echo.Context) error {
 // @Param active query bool false "Фильтр по активности ресторанов" default(true)
 // @Success 200 {array} models.Restaurant
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/restaurants [get]
+// @Router /restaurants [get]
 func (h *RestaurantHandler) List(c echo.Context) error {
 	activeStr := c.QueryParam("active")
 

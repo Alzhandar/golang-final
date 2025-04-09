@@ -40,7 +40,7 @@ func (h *MenuHandler) Register(e *echo.Group) {
 // @Success 201 {object} map[string]interface{}
 // @Failure 400 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menus [post]
+// @Router /menus [post]
 func (h *MenuHandler) Create(c echo.Context) error {
 	var menu models.Menu
 	if err := c.Bind(&menu); err != nil {
@@ -73,7 +73,7 @@ func (h *MenuHandler) Create(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menus/{id} [get]
+// @Router /menus/{id} [get]
 func (h *MenuHandler) GetByID(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -104,7 +104,7 @@ func (h *MenuHandler) GetByID(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menus/restaurant/{restaurantID} [get]
+// @Router /menus/restaurant/{restaurantID} [get]
 func (h *MenuHandler) GetByRestaurant(c echo.Context) error {
 	restaurantIDStr := c.Param("restaurantID")
 	restaurantID, err := strconv.ParseInt(restaurantIDStr, 10, 64)
@@ -136,7 +136,7 @@ func (h *MenuHandler) GetByRestaurant(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menus/{id} [put]
+// @Router /menus/{id} [put]
 func (h *MenuHandler) Update(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
@@ -176,7 +176,7 @@ func (h *MenuHandler) Update(c echo.Context) error {
 // @Failure 400 {object} map[string]interface{}
 // @Failure 404 {object} map[string]interface{}
 // @Failure 500 {object} map[string]interface{}
-// @Router /api/v1/menus/{id} [delete]
+// @Router /menus/{id} [delete]
 func (h *MenuHandler) Delete(c echo.Context) error {
 	idStr := c.Param("id")
 	id, err := strconv.ParseInt(idStr, 10, 64)
