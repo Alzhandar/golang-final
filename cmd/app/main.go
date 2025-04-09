@@ -12,7 +12,6 @@ import (
 	"restaurant-management/internal/repository/postgres"
 	"restaurant-management/internal/usecase"
 	"restaurant-management/pkg/database"
-	// Раскомментируйте для генерации документации Swagger
 	// _ "restaurant-management/docs"
 )
 
