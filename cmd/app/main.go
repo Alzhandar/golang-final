@@ -1,18 +1,10 @@
 package main
 
 import (
-	"context"
 	"log"
-	"os"
-	"path/filepath"
 
 	_ "restaurant-management/docs"
-	"restaurant-management/internal/config"
-	"restaurant-management/internal/delivery/http"
-	"restaurant-management/internal/repository"
-	"restaurant-management/internal/repository/postgres"
-	"restaurant-management/internal/usecase"
-	"restaurant-management/pkg/database"
+	"restaurant-management/internal/app"
 )
 
 // @title Restaurant Management System API
@@ -30,58 +22,13 @@ import (
 // @BasePath /api/v1
 
 func main() {
-	configPath := getConfigPath()
-
-	cfg, err := config.LoadConfig(configPath)
+	application, err := app.New()
 	if err != nil {
-		log.Fatalf("Ошибка при загрузке конфигурации: %v", err)
+		log.Fatalf("Ошибка при инициализации приложения: %v", err)
 	}
+	defer application.Stop()
 
-	db, err := initDB(cfg)
-	if err != nil {
-		log.Fatalf("Ошибка при инициализации базы данных: %v", err)
-	}
-	defer db.Close()
-
-	repos := initRepositories(db)
-	useCases := initUseCases(repos)
-
-	server := http.NewServer(cfg, useCases)
-	log.Printf("Сервер запущен на порту %s", cfg.Server.Port)
-	if err := server.Start(); err != nil {
+	if err := application.Run(); err != nil {
 		log.Fatalf("Ошибка при запуске сервера: %v", err)
-	}
-}
-
-func getConfigPath() string {
-	configPath := os.Getenv("CONFIG_PATH")
-	if configPath == "" {
-		configPath = filepath.Join("configs", "config.yaml")
-	}
-	return configPath
-}
-
-func initDB(cfg *config.Config) (*database.PostgreSQL, error) {
-	ctx := context.Background()
-	db, err := database.NewPostgreSQL(ctx, cfg.Database.PostgresURL())
-	if err != nil {
-		return nil, err
-	}
-	return db, nil
-}
-
-func initRepositories(db *database.PostgreSQL) *repository.Repository {
-	return &repository.Repository{
-		User:       postgres.NewUserRepository(db.Pool),
-		City:       postgres.NewCityRepository(db.Pool),
-		Restaurant: postgres.NewRestaurantRepository(db.Pool),
-	}
-}
-
-func initUseCases(repos *repository.Repository) *usecase.UseCase {
-	return &usecase.UseCase{
-		User:       usecase.NewUserUseCase(repos.User),
-		City:       usecase.NewCityUseCase(repos.City),
-		Restaurant: usecase.NewRestaurantUseCase(repos.Restaurant, repos.City),
 	}
 }
