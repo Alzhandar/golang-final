@@ -1,8 +1,11 @@
 package handlers
 
 import (
+	"bytes"
+	"io"
 	"net/http"
 	"strconv"
+	"strings"
 
 	"github.com/labstack/echo/v4"
 
@@ -41,17 +44,62 @@ func (h *SectionHandler) Register(e *echo.Group) {
 // @Failure 500 {object} map[string]interface{}
 // @Router /sections [post]
 func (h *SectionHandler) Create(c echo.Context) error {
-	var section models.Section
-	if err := c.Bind(&section); err != nil {
+	bodyBytes, err := io.ReadAll(c.Request().Body)
+	if err != nil {
+		c.Logger().Errorf("Не удалось прочитать тело запроса: %v", err)
 		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"error": "некорректные данные секции",
+			"error": "не удалось прочитать запрос",
 		})
 	}
 
+	c.Request().Body = io.NopCloser(bytes.NewBuffer(bodyBytes))
+
+	c.Logger().Infof("Тело запроса: %s", string(bodyBytes))
+
+	var section models.Section
+	if err := c.Bind(&section); err != nil {
+		c.Logger().Errorf("Ошибка при привязке данных: %v", err)
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"error": "некорректные данные секции: " + err.Error(),
+		})
+	}
+
+	c.Logger().Infof("Секция после привязки: %+v", section)
+
+	if section.RestaurantID <= 0 {
+		errMsg := "ID ресторана должен быть положительным числом"
+		c.Logger().Error(errMsg)
+		return c.JSON(http.StatusBadRequest, map[string]interface{}{
+			"error": errMsg,
+		})
+	}
+
+	defer func() {
+		if r := recover(); r != nil {
+			c.Logger().Errorf("Паника при создании секции: %v", r)
+			c.JSON(http.StatusInternalServerError, map[string]interface{}{
+				"error": "внутренняя ошибка сервера",
+			})
+		}
+	}()
+
 	id, err := h.sectionUC.Create(c.Request().Context(), &section)
 	if err != nil {
-		return c.JSON(http.StatusBadRequest, map[string]interface{}{
-			"error": err.Error(),
+		c.Logger().Errorf("Ошибка создания секции: %v", err)
+
+		// Разделяем ошибки на клиентские и серверные
+		if strings.Contains(err.Error(), "ресторан не найден") ||
+			strings.Contains(err.Error(), "название секции") ||
+			strings.Contains(err.Error(), "уже существует") {
+			return c.JSON(http.StatusBadRequest, map[string]interface{}{
+				"error": err.Error(),
+			})
+		}
+
+		// Остальные ошибки считаем серверными
+		return c.JSON(http.StatusInternalServerError, map[string]interface{}{
+			"error":   "Внутренняя ошибка сервера при создании секции",
+			"details": err.Error(),
 		})
 	}
 

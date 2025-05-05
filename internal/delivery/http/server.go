@@ -69,6 +69,18 @@ func (s *Server) setupRoutes() {
 	restaurantHandler := handlers.NewRestaurantHandler(s.useCase.Restaurant)
 	restaurantHandler.Register(api)
 
+	sectionHandler := handlers.NewSectionHandler(s.useCase.Section)
+	sectionHandler.Register(api)
+
+	tableHandler := handlers.NewTableHandler(s.useCase.Table)
+	tableHandler.Register(api)
+
+	menuTypeHandler := handlers.NewMenuTypeHandler(s.useCase.MenuType)
+	menuTypeHandler.Register(api)
+
+	menuHandler := handlers.NewMenuHandler(s.useCase.Menu)
+	menuHandler.Register(api)
+
 	s.echo.GET("/health", func(c echo.Context) error {
 		return c.JSON(http.StatusOK, map[string]string{
 			"status": "OK",

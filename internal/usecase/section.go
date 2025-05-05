@@ -28,7 +28,7 @@ func (uc *SectionUC) Create(ctx context.Context, section *models.Section) (int64
 
 	_, err := uc.restaurantRepo.GetByID(ctx, section.RestaurantID)
 	if err != nil {
-		return 0, fmt.Errorf("указанный ресторан не существует: %w", err)
+		return 0, fmt.Errorf("ресторан не найден: %w", err)
 	}
 
 	sections, err := uc.sectionRepo.GetByRestaurant(ctx, section.RestaurantID)
@@ -101,12 +101,13 @@ func (uc *SectionUC) Delete(ctx context.Context, id int64) error {
 
 func validateSection(section *models.Section) error {
 	section.Name = strings.TrimSpace(section.Name)
+
 	if section.Name == "" {
 		return fmt.Errorf("название секции не может быть пустым")
 	}
 
 	if section.RestaurantID <= 0 {
-		return fmt.Errorf("необходимо указать корректный ID ресторана")
+		return fmt.Errorf("некорректный ID ресторана")
 	}
 
 	return nil

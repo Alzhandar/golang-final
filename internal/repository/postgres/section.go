@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/jackc/pgconn"
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
 
@@ -29,6 +30,18 @@ func (r *SectionRepository) Create(ctx context.Context, section *models.Section)
 	err := r.db.QueryRow(ctx, query, section.RestaurantID, section.Name).Scan(&id)
 
 	if err != nil {
+		var pgErr *pgconn.PgError
+		if errors.As(err, &pgErr) {
+			switch pgErr.Code {
+			case "23505":
+				return 0, fmt.Errorf("секция с таким именем уже существует в этом ресторане")
+			case "23503":
+				return 0, fmt.Errorf("указанный ресторан с ID %d не существует", section.RestaurantID)
+			default:
+				return 0, fmt.Errorf("ошибка базы данных: %s", pgErr.Message)
+			}
+		}
+
 		return 0, fmt.Errorf("не удалось создать секцию: %w", err)
 	}
 
@@ -74,11 +87,8 @@ func (r *SectionRepository) GetByRestaurant(ctx context.Context, restaurantID in
 	var sections []*models.Section
 	for rows.Next() {
 		var section models.Section
-		if err := rows.Scan(
-			&section.ID,
-			&section.RestaurantID,
-			&section.Name,
-		); err != nil {
+		err := rows.Scan(&section.ID, &section.RestaurantID, &section.Name)
+		if err != nil {
 			return nil, fmt.Errorf("ошибка при сканировании секции: %w", err)
 		}
 		sections = append(sections, &section)

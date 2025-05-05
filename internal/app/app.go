@@ -80,6 +80,10 @@ func initRepositories(db *database.PostgreSQL) *repository.Repository {
 		User:       postgres.NewUserRepository(db.Pool),
 		City:       postgres.NewCityRepository(db.Pool),
 		Restaurant: postgres.NewRestaurantRepository(db.Pool),
+		Section:    postgres.NewSectionRepository(db.Pool),
+		Table:      postgres.NewTableRepository(db.Pool),
+		MenuType:   postgres.NewMenuTypeRepository(db.Pool),
+		Menu:       postgres.NewMenuRepository(db.Pool),
 	}
 }
 
@@ -88,5 +92,9 @@ func initUseCases(repos *repository.Repository) *usecase.UseCase {
 		User:       usecase.NewUserUseCase(repos.User),
 		City:       usecase.NewCityUseCase(repos.City),
 		Restaurant: usecase.NewRestaurantUseCase(repos.Restaurant, repos.City),
+		Section:    usecase.NewSectionUseCase(repos.Section, repos.Restaurant),
+		Table:      usecase.NewTableUseCase(repos.Table, repos.Section),
+		MenuType:   usecase.NewMenuTypeUseCase(repos.MenuType),
+		Menu:       usecase.NewMenuUseCase(repos.Menu, repos.Restaurant),
 	}
 }
