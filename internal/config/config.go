@@ -8,8 +8,15 @@ import (
 )
 
 type Config struct {
-	Server   ServerConfig
-	Database DatabaseConfig
+	Server          ServerConfig
+	Database        DatabaseConfig
+	APILogin        string
+	TokenCacheKey   string
+	TokenTimeout    time.Duration
+	APITimeout      time.Duration
+	WaiterAPIURL    string
+	WaiterAPIKey    string
+	DefaultWaiterID string
 }
 
 type ServerConfig struct {
@@ -30,6 +37,18 @@ type DatabaseConfig struct {
 func (c *DatabaseConfig) PostgresURL() string {
 	return fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s",
 		c.User, c.Password, c.Host, c.Port, c.DBName, c.SSLMode)
+}
+
+func NewDefaultConfig() *Config {
+	return &Config{
+		APILogin:        "default_api_login",
+		TokenCacheKey:   "iiko_token",
+		TokenTimeout:    time.Hour,
+		APITimeout:      time.Second * 15,
+		WaiterAPIURL:    "https://api.waiter.iiko.ru",
+		WaiterAPIKey:    "default_waiter_api_key",
+		DefaultWaiterID: "default_waiter_id",
+	}
 }
 
 func LoadConfig(path string) (*Config, error) {
